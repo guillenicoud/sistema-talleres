@@ -1,0 +1,25 @@
+.link-hover {
+    position: relative;
+    display: inline-block;
+    text-decoration: none;
+    color: white;
+  }
+
+  .link-hover::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 1px;
+    left: 0;
+    bottom: 0;
+    background-color: white;
+    transition: width 0.3s ease;
+  }
+
+  .link-hover:hover::after {
+    width: 100%;
+  }
+
+.sidebar { width: 220px; background-color: #4f77aa; position: fixed; top: 0; left: 0; height: 100vh; overflow-y: auto; z-index: 1000; }
+.nav-link.active { font-weight: bold; text-decoration: underline; }
+@media (max-width: 767px) { .sidebar { position: static; width: 100%; height: auto; } }

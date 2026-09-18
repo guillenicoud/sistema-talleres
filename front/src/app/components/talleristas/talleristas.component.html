@@ -1,0 +1,168 @@
+<div class="container">
+  <div *ngIf="error" class="alert alert-danger" role="alert">{{ error }} <button type="button" class="btn btn-sm btn-outline-danger" (click)="cargar()" [disabled]="cargando || guardando">Actualizar lista</button></div>
+  <p *ngIf="cargando" role="status">Cargando...</p>
+  <p *ngIf="guardando" role="status">Guardando cambios...</p>
+  <h2 class="mb-4">Lista de Profes</h2>
+
+  <div *ngIf="!cargando && !error && talleristas.length === 0" class="alert alert-info">
+    No hay talleristas registrados.
+  </div>
+  <div class="mb-3 text-end">
+    <button [disabled]="guardando || cargando" class="btn btn-success btn-sm" (click)="nuevoTallerista()">
+      ➕ Nuevo Tallerista
+    </button>
+  </div>
+
+  <div class="table-responsive"><table class="table table-bordered table-striped">
+    <thead class="table-primary">
+      <tr>
+        <th>ID</th>
+        <th>Nombre</th>
+        <th>Apellido</th>
+        <th>Teléfono</th>
+        <th>DNI</th>
+        <th>Dirección</th>
+        <th>E-Mail</th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngIf="creandoNuevo">
+        <td>—</td>
+        <td>
+          <input aria-label="Nombre"
+            class="form-control form-control-sm"
+            [(ngModel)]="nuevo.nombre"
+            placeholder="Nombre"
+          />
+        </td>
+        <td>
+          <input aria-label="Apellido"
+            class="form-control form-control-sm"
+            [(ngModel)]="nuevo.apellido"
+            placeholder="Apellido"
+          />
+        </td>
+        <td>
+          <input aria-label="Teléfono"
+            class="form-control form-control-sm"
+            [(ngModel)]="nuevo.telefono"
+            placeholder="Teléfono"
+          />
+        </td>
+        <td>
+          <input aria-label="DNI"
+            class="form-control form-control-sm"
+            [(ngModel)]="nuevo.dni"
+            placeholder="DNI"
+          />
+        </td>
+        <td>
+          <input aria-label="Dirección"
+            class="form-control form-control-sm"
+            [(ngModel)]="nuevo.direccion"
+            placeholder="Dirección"
+          />
+        </td>
+        <td>
+          <input aria-label="Email"
+            class="form-control form-control-sm"
+            [(ngModel)]="nuevo.email"
+            placeholder="Email"
+          />
+        </td>
+        <td>
+          <button aria-label="Guardar nuevo registro" [disabled]="guardando || cargando" class="btn btn-sm btn-success me-1" (click)="guardarNuevo()">
+            💾
+          </button>
+          <button aria-label="Cancelar nuevo registro" [disabled]="guardando || cargando" class="btn btn-sm btn-secondary" (click)="cancelarNuevo()">
+            ❌
+          </button>
+        </td>
+      </tr>
+
+      <tr *ngFor="let t of talleristas">
+        <td>{{ t.id_tallerista }}</td>
+
+        <!-- Nombre -->
+        <td *ngIf="editId !== t.id_tallerista">{{ t.nombre }}</td>
+        <td *ngIf="editId === t.id_tallerista">
+          <input aria-label="Nombre"
+            class="form-control form-control-sm"
+            [(ngModel)]="formData.nombre"
+          />
+        </td>
+
+        <!-- Apellido -->
+        <td *ngIf="editId !== t.id_tallerista">{{ t.apellido }}</td>
+        <td *ngIf="editId === t.id_tallerista">
+          <input aria-label="Apellido"
+            class="form-control form-control-sm"
+            [(ngModel)]="formData.apellido"
+          />
+        </td>
+
+        <!-- Teléfono -->
+        <td *ngIf="editId !== t.id_tallerista">{{ t.telefono }}</td>
+        <td *ngIf="editId === t.id_tallerista">
+          <input aria-label="Teléfono"
+            class="form-control form-control-sm"
+            [(ngModel)]="formData.telefono"
+          />
+        </td>
+
+        <!-- DNI -->
+        <td *ngIf="editId !== t.id_tallerista">{{ t.dni }}</td>
+        <td *ngIf="editId === t.id_tallerista">
+          <input aria-label="DNI"
+            class="form-control form-control-sm"
+            [(ngModel)]="formData.dni"
+          />
+        </td>
+
+        <!-- Dirección -->
+        <td *ngIf="editId !== t.id_tallerista">{{ t.direccion }}</td>
+        <td *ngIf="editId === t.id_tallerista">
+          <input aria-label="Dirección"
+            class="form-control form-control-sm"
+            [(ngModel)]="formData.direccion"
+          />
+        </td>
+
+        <!-- Email -->
+        <td *ngIf="editId !== t.id_tallerista">{{ t.email }}</td>
+        <td *ngIf="editId === t.id_tallerista">
+          <input aria-label="Email"
+            class="form-control form-control-sm"
+            [(ngModel)]="formData.email"
+          />
+        </td>
+
+        <td>
+          <button aria-label="Editar" [disabled]="guardando || cargando"
+            *ngIf="editId !== t.id_tallerista"
+            class="btn btn-sm btn-outline-primary"
+            (click)="startEdit(t)"
+          >
+            ✏️
+          </button>
+
+          <ng-container *ngIf="editId === t.id_tallerista">
+            <button aria-label="Guardar cambios" [disabled]="guardando || cargando" class="btn btn-sm btn-success me-1" (click)="saveEdit()">
+              💾
+            </button>
+            <button aria-label="Cancelar edición" [disabled]="guardando || cargando" class="btn btn-sm btn-secondary" (click)="cancelEdit()">
+              ❌
+            </button>
+          </ng-container>
+          <button aria-label="Eliminar tallerista" [disabled]="guardando || cargando"
+            class="btn btn-sm btn-outline-danger ms-1"
+            (click)="deleteTallerista(t)"
+          >
+            Eliminar
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table></div>
+</div>

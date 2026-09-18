@@ -1,0 +1,46 @@
+<div class="container">
+  <div *ngIf="error" class="alert alert-danger" role="alert">
+    {{ error }}
+    <button type="button" class="btn btn-sm btn-outline-danger" (click)="cargar()" [disabled]="cargando || guardando">Actualizar lista</button>
+  </div>
+  <p *ngIf="cargando" role="status">Cargando...</p>
+  <p *ngIf="guardando" role="status">Guardando cambios...</p>
+
+  <h2 class="mb-3">Talleres</h2>
+  <p>Consultá días, horarios y profesores en <a routerLink="/detalle-taller">Horarios</a>.</p>
+
+  <form class="row g-2 mb-4" (ngSubmit)="crear()">
+    <div class="col-sm-8 col-md-6">
+      <label for="nuevo-taller" class="form-label">Nombre del nuevo taller</label>
+      <input id="nuevo-taller" name="nuevoTaller" class="form-control" type="text" maxlength="100" required [(ngModel)]="nuevoTaller" />
+    </div>
+    <div class="col-sm-auto align-self-end">
+      <button type="submit" class="btn btn-primary" [disabled]="cargando || guardando">Agregar taller</button>
+    </div>
+  </form>
+
+  <div *ngIf="!cargando && !error && talleres.length === 0" class="alert alert-info">No hay talleres registrados.</div>
+
+  <div class="table-responsive" *ngIf="talleres.length > 0">
+    <table class="table table-bordered table-striped align-middle">
+      <thead class="table-primary"><tr><th>#</th><th>Nombre del taller</th><th>Acciones</th></tr></thead>
+      <tbody>
+        <tr *ngFor="let taller of talleres">
+          <td>{{ taller.id_taller }}</td>
+          <td *ngIf="editId !== taller.id_taller">{{ taller.taller }}</td>
+          <td *ngIf="editId === taller.id_taller">
+            <input class="form-control" aria-label="Nombre del taller" maxlength="100" [(ngModel)]="nombreEditado" (keyup.enter)="guardarEdicion()" (keyup.escape)="cancelarEdicion()" />
+          </td>
+          <td>
+            <button *ngIf="editId !== taller.id_taller" type="button" class="btn btn-sm btn-outline-primary me-2" aria-label="Editar taller" [disabled]="cargando || guardando" (click)="comenzarEdicion(taller)">Editar</button>
+            <ng-container *ngIf="editId === taller.id_taller">
+              <button type="button" class="btn btn-sm btn-success me-2" [disabled]="cargando || guardando" (click)="guardarEdicion()">Guardar</button>
+              <button type="button" class="btn btn-sm btn-secondary me-2" [disabled]="cargando || guardando" (click)="cancelarEdicion()">Cancelar</button>
+            </ng-container>
+            <button type="button" class="btn btn-sm btn-outline-danger" aria-label="Eliminar taller" [disabled]="cargando || guardando" (click)="eliminar(taller)">Eliminar</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

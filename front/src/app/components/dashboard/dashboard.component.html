@@ -1,0 +1,29 @@
+<div class="container">
+  <div *ngIf="error" class="alert alert-danger" role="alert">{{ error }} <button type="button" class="btn btn-sm btn-outline-danger" (click)="cargar()" [disabled]="cargando">Actualizar lista</button></div>
+  <p *ngIf="cargando" role="status">Cargando...</p>
+
+
+    <div class="d-flex justify-content-end align-items-center mb-2">
+        <div class="text-muted small text-end">
+          <div>{{ fechaHoy | date:'fullDate' }} | Hora: {{ fechaHoy | date:'shortTime' }}</div>
+        </div>
+      </div>
+
+    <h2 class="mb-4">Talleres del día</h2>
+
+    <div *ngIf="!cargando && !error && talleresHoy.length === 0" class="alert alert-info">
+      No hay talleres registrados para hoy.
+    </div>
+
+    <div *ngFor="let taller of talleresHoy" class="card mb-3 shadow-sm">
+      <div class="card-body">
+
+        <h5 class="card-title">{{ taller.nombre }}</h5>
+        <div class="d-flex flex-wrap gap-4 text-muted small">
+          <div><strong>Nivel:</strong> {{ taller.nivel }}</div>
+          <div><strong>Horario:</strong> {{ taller.hora_inicio }} - {{ taller.hora_fin }}</div>
+          <div><strong>Tallerista:</strong> {{ taller.tallerista }}</div>
+        </div>
+      </div>
+    </div>
+  </div>

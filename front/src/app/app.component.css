@@ -1,0 +1,2 @@
+.app-content { margin-left: 220px; min-height: 100vh; }
+@media (max-width: 767px) { .app-content { margin-left: 0; } }
