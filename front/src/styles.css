@@ -1,1 +1,197 @@
-/* You can add global styles to this file, and also import other style files */
+/* ==========================================================================
+   Tema del sistema — capa sobre Bootstrap 5.3
+   Los colores y radios se definen como variables para poder ajustarlos
+   desde un único lugar.
+   ========================================================================== */
+:root {
+  --sj-primary: #2f5fa7;
+  --sj-primary-dark: #244b86;
+  --sj-primary-soft: #e8eefa;
+  --sj-ink: #1e2a3b;
+  --sj-muted: #6b778a;
+  --sj-line: #e3e8f0;
+  --sj-bg: #f3f5fa;
+  --sj-surface: #ffffff;
+  --sj-radius: 12px;
+  --sj-radius-sm: 8px;
+  --sj-shadow: 0 1px 2px rgba(30, 42, 59, .06), 0 4px 16px rgba(30, 42, 59, .05);
+  --sj-shadow-hover: 0 2px 4px rgba(30, 42, 59, .08), 0 8px 24px rgba(30, 42, 59, .08);
+
+  --bs-primary: var(--sj-primary);
+  --bs-primary-rgb: 47, 95, 167;
+  --bs-link-color: var(--sj-primary);
+  --bs-link-color-rgb: 47, 95, 167;
+  --bs-link-hover-color: var(--sj-primary-dark);
+  --bs-body-color: var(--sj-ink);
+  --bs-body-bg: var(--sj-bg);
+  --bs-border-color: var(--sj-line);
+  --bs-border-radius: var(--sj-radius-sm);
+  --bs-secondary-color: var(--sj-muted);
+  --bs-body-font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+}
+
+body { -webkit-font-smoothing: antialiased; }
+
+h1, h2, h3, h4, h5 { color: var(--sj-ink); letter-spacing: -.01em; }
+h2 { font-size: 1.6rem; font-weight: 700; }
+
+/* La cabecera de cada pantalla ya no usa text-primary de Bootstrap */
+.text-primary { color: var(--sj-primary) !important; }
+
+/* ---- Layout ------------------------------------------------------------ */
+.app-content { margin-left: 240px; min-height: 100vh; background: var(--sj-bg) !important; }
+.app-content .container { max-width: 1080px; }
+@media (max-width: 767px) { .app-content { margin-left: 0; } }
+
+/* ---- Menú lateral ------------------------------------------------------ */
+.sidebar {
+  width: 240px;
+  position: fixed; top: 0; left: 0; height: 100vh; overflow-y: auto; z-index: 1000;
+  background: linear-gradient(180deg, #1f3358 0%, #2a4474 100%);
+  box-shadow: 2px 0 12px rgba(30, 42, 59, .12);
+}
+.sidebar h4 { font-weight: 700; letter-spacing: .02em; padding: .25rem .75rem; }
+.sidebar .nav-link {
+  display: block;
+  margin-bottom: 2px;
+  padding: .6rem .9rem;
+  border-radius: var(--sj-radius-sm);
+  color: rgba(255, 255, 255, .78) !important;
+  font-weight: 500;
+  transition: background-color .15s ease, color .15s ease;
+}
+.sidebar a.nav-link:hover { background: rgba(255, 255, 255, .1); color: #fff !important; }
+.sidebar .nav-link.active { background: rgba(255, 255, 255, .18); color: #fff !important; font-weight: 600; text-decoration: none; }
+.sidebar span.nav-link { color: rgba(255, 255, 255, .4) !important; font-size: .9rem; cursor: default; }
+.sidebar .border-top { border-color: rgba(255, 255, 255, .15) !important; }
+.sidebar .small { padding: 0 .9rem; }
+@media (max-width: 767px) { .sidebar { position: static; width: 100%; height: auto; } }
+
+/* ---- Tarjetas ---------------------------------------------------------- */
+.card {
+  --bs-card-border-color: var(--sj-line);
+  --bs-card-border-radius: var(--sj-radius);
+  --bs-card-inner-border-radius: calc(var(--sj-radius) - 1px);
+  --bs-card-cap-bg: var(--sj-surface);
+  background: var(--sj-surface);
+  border: 1px solid var(--sj-line);
+  border-radius: var(--sj-radius);
+  box-shadow: var(--sj-shadow);
+  overflow: hidden;
+}
+.card.shadow-sm { box-shadow: var(--sj-shadow) !important; }
+.card-header {
+  padding: .9rem 1.25rem;
+  background: var(--sj-surface) !important;
+  border-bottom: 1px solid var(--sj-line);
+  font-weight: 600;
+  color: var(--sj-ink);
+}
+.card-body { padding: 1.25rem; }
+.card-body.p-0 { padding: 0; }
+.card-title { font-weight: 650; }
+
+/* ---- Botones ----------------------------------------------------------- */
+.btn {
+  --bs-btn-border-radius: var(--sj-radius-sm);
+  --bs-btn-font-weight: 550;
+  --bs-btn-padding-x: 1rem;
+  transition: background-color .15s ease, border-color .15s ease, box-shadow .15s ease, transform .05s ease;
+}
+.btn:active:not(:disabled) { transform: translateY(1px); }
+.btn:focus-visible { box-shadow: 0 0 0 .25rem rgba(47, 95, 167, .25); }
+.btn-sm { --bs-btn-padding-x: .7rem; --bs-btn-padding-y: .3rem; --bs-btn-font-size: .85rem; }
+
+.btn-primary {
+  --bs-btn-bg: var(--sj-primary); --bs-btn-border-color: var(--sj-primary);
+  --bs-btn-hover-bg: var(--sj-primary-dark); --bs-btn-hover-border-color: var(--sj-primary-dark);
+  --bs-btn-active-bg: var(--sj-primary-dark); --bs-btn-active-border-color: var(--sj-primary-dark);
+  --bs-btn-disabled-bg: var(--sj-primary); --bs-btn-disabled-border-color: var(--sj-primary);
+  box-shadow: 0 1px 2px rgba(47, 95, 167, .3);
+}
+.btn-success {
+  --bs-btn-bg: #2e8b57; --bs-btn-border-color: #2e8b57;
+  --bs-btn-hover-bg: #26764a; --bs-btn-hover-border-color: #26764a;
+  --bs-btn-active-bg: #26764a; --bs-btn-active-border-color: #26764a;
+}
+.btn-secondary {
+  --bs-btn-color: var(--sj-ink); --bs-btn-bg: #eef1f6; --bs-btn-border-color: #eef1f6;
+  --bs-btn-hover-color: var(--sj-ink); --bs-btn-hover-bg: #e0e5ee; --bs-btn-hover-border-color: #e0e5ee;
+  --bs-btn-active-color: var(--sj-ink); --bs-btn-active-bg: #e0e5ee; --bs-btn-active-border-color: #e0e5ee;
+}
+.btn-outline-primary {
+  --bs-btn-color: var(--sj-primary); --bs-btn-border-color: #c9d6ee;
+  --bs-btn-hover-bg: var(--sj-primary-soft); --bs-btn-hover-color: var(--sj-primary-dark); --bs-btn-hover-border-color: #b4c6e6;
+  --bs-btn-active-bg: var(--sj-primary-soft); --bs-btn-active-color: var(--sj-primary-dark); --bs-btn-active-border-color: #b4c6e6;
+}
+.btn-outline-danger {
+  --bs-btn-color: #c0392b; --bs-btn-border-color: #f0c8c3;
+  --bs-btn-hover-bg: #fdecea; --bs-btn-hover-color: #a5281b; --bs-btn-hover-border-color: #e8b0a9;
+  --bs-btn-active-bg: #fdecea; --bs-btn-active-color: #a5281b; --bs-btn-active-border-color: #e8b0a9;
+}
+.btn-outline-secondary {
+  --bs-btn-color: var(--sj-muted); --bs-btn-border-color: var(--sj-line);
+  --bs-btn-hover-bg: #eef1f6; --bs-btn-hover-color: var(--sj-ink); --bs-btn-hover-border-color: #d5dbe6;
+  --bs-btn-active-bg: #eef1f6; --bs-btn-active-color: var(--sj-ink); --bs-btn-active-border-color: #d5dbe6;
+}
+
+/* ---- Formularios ------------------------------------------------------- */
+.form-label { font-size: .85rem; font-weight: 600; color: var(--sj-muted); margin-bottom: .3rem; }
+.form-control, .form-select {
+  border-color: #d5dbe6;
+  border-radius: var(--sj-radius-sm);
+  padding: .55rem .8rem;
+  background-color: #fff;
+}
+.form-control-sm, .form-select-sm { padding: .3rem .6rem; }
+.form-control:focus, .form-select:focus {
+  border-color: var(--sj-primary);
+  box-shadow: 0 0 0 .22rem rgba(47, 95, 167, .18);
+}
+.form-control::placeholder { color: #a3adbd; }
+.input-group-text { background: #f6f8fc; border-color: #d5dbe6; color: var(--sj-muted); }
+.input-group > .form-control:not(:first-child) { border-left-color: transparent; }
+.input-group:focus-within .input-group-text { border-color: var(--sj-primary); }
+
+/* ---- Tablas ------------------------------------------------------------ */
+.table {
+  --bs-table-bg: transparent;
+  --bs-table-hover-bg: #f6f8fc;
+  --bs-table-striped-bg: #fafbfe;
+  --bs-table-border-color: var(--sj-line);
+  margin-bottom: 0;
+  vertical-align: middle;
+}
+.table > thead > tr > th,
+.table > thead.table-primary > tr > th {
+  background: #f6f8fc;
+  color: var(--sj-muted);
+  font-size: .75rem;
+  font-weight: 700;
+  letter-spacing: .05em;
+  text-transform: uppercase;
+  border-bottom: 1px solid var(--sj-line);
+  padding: .85rem 1rem;
+}
+.table > tbody > tr > td { padding: .8rem 1rem; }
+.table-bordered { border: 0; }
+.table-bordered > :not(caption) > * { border-width: 0; }
+.table-bordered > :not(caption) > * > * { border-width: 0 0 1px 0; }
+.table > :not(caption) > * > *,
+.table-bordered > :not(caption) > * { border-color: var(--sj-line); }
+.table > tbody > tr:last-child > td { border-bottom: 0; }
+/* La última columna aloja los botones de acción: que no se partan en varias líneas */
+.table > tbody > tr > td:last-child { white-space: nowrap; }
+.table > tbody > tr > td:last-child .btn + .btn { margin-left: .25rem; }
+/* Envoltura para las tablas que no van dentro de una tarjeta */
+.table-responsive { border-radius: var(--sj-radius); }
+.container > .table-responsive { background: var(--sj-surface); border: 1px solid var(--sj-line); box-shadow: var(--sj-shadow); }
+
+/* ---- Avisos ------------------------------------------------------------ */
+.alert { border: 0; border-left: 4px solid; border-radius: var(--sj-radius-sm); box-shadow: var(--sj-shadow); }
+.alert-danger { background: #fdf0ee; color: #8f2a1f; border-left-color: #d64a3a; }
+.alert-info { background: #edf4fc; color: #1f4a7d; border-left-color: #4a8bd6; }
+.alert-danger .btn { margin-left: .5rem; }
+
+/* Estado de carga / guardado */
+p[role="status"] { color: var(--sj-muted); font-size: .9rem; }

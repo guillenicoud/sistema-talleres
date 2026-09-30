@@ -2,14 +2,14 @@
   <div *ngIf="error" class="alert alert-danger" role="alert">{{ error }} <button type="button" class="btn btn-sm btn-outline-danger" (click)="cargar()" [disabled]="cargando || guardando">Actualizar lista</button></div>
   <p *ngIf="cargando" role="status">Cargando...</p>
   <p *ngIf="guardando" role="status">Guardando cambios...</p>
-  <h2 class="mb-4">Lista de Profes</h2>
+  <h2 class="mb-4">Talleristas</h2>
 
   <div *ngIf="!cargando && !error && talleristas.length === 0" class="alert alert-info">
     No hay talleristas registrados.
   </div>
   <div class="mb-3 text-end">
     <button [disabled]="guardando || cargando" class="btn btn-success btn-sm" (click)="nuevoTallerista()">
-      ➕ Nuevo Tallerista
+      Nuevo tallerista
     </button>
   </div>
 
@@ -73,15 +73,15 @@
         </td>
         <td>
           <button aria-label="Guardar nuevo registro" [disabled]="guardando || cargando" class="btn btn-sm btn-success me-1" (click)="guardarNuevo()">
-            💾
+            Guardar
           </button>
           <button aria-label="Cancelar nuevo registro" [disabled]="guardando || cargando" class="btn btn-sm btn-secondary" (click)="cancelarNuevo()">
-            ❌
+            Cancelar
           </button>
         </td>
       </tr>
 
-      <tr *ngFor="let t of talleristas">
+      <tr *ngFor="let t of talleristas; trackBy: trackById">
         <td>{{ t.id_tallerista }}</td>
 
         <!-- Nombre -->
@@ -144,15 +144,15 @@
             class="btn btn-sm btn-outline-primary"
             (click)="startEdit(t)"
           >
-            ✏️
+            Editar
           </button>
 
           <ng-container *ngIf="editId === t.id_tallerista">
             <button aria-label="Guardar cambios" [disabled]="guardando || cargando" class="btn btn-sm btn-success me-1" (click)="saveEdit()">
-              💾
+              Guardar
             </button>
             <button aria-label="Cancelar edición" [disabled]="guardando || cargando" class="btn btn-sm btn-secondary" (click)="cancelEdit()">
-              ❌
+              Cancelar
             </button>
           </ng-container>
           <button aria-label="Eliminar tallerista" [disabled]="guardando || cargando"

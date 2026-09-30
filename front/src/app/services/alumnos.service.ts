@@ -10,7 +10,7 @@ export class AlumnosService {
   constructor(private http: HttpClient) {}
   getAll(): Observable<Alumno[]> { return this.http.get<Alumno[]>(this.baseUrl); }
   getById(id: number): Observable<Alumno[]> { return this.http.get<Alumno[]>(this.baseUrl + '/' + id); }
-  postALumno(data: Persona): Observable<Alumno> { return this.http.post<Alumno>(this.baseUrl, data); }
+  create(data: Persona): Observable<Alumno> { return this.http.post<Alumno>(this.baseUrl, data); }
   update(id: number, data: Persona): Observable<unknown> { return this.http.put(this.baseUrl + '/' + id, data); }
   delete(id: number): Observable<unknown> { return this.http.delete(this.baseUrl + '/' + id); }
 }

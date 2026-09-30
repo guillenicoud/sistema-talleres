@@ -27,9 +27,10 @@ export function validarNombreTaller(nombre: string): string {
 export function mensajeError(error: unknown): string {
   if (error instanceof HttpErrorResponse) {
     if (error.status === 0) return 'No se pudo conectar con el servidor. Intentá nuevamente.';
-    if (error.status === 409) return 'El registro ya existe o tiene relaciones que impiden la operación.';
+    const detalle = typeof error.error?.message === 'string' ? error.error.message : '';
+    if (error.status === 409) return detalle || 'El registro ya existe o tiene relaciones que impiden la operación.';
     if (error.status === 404) return 'El registro ya no está disponible. Actualizá la lista.';
-    if (error.status === 400) return 'Revisá los datos ingresados e intentá nuevamente.';
+    if (error.status === 400) return detalle || 'Revisá los datos ingresados e intentá nuevamente.';
   }
   return 'No se pudo completar la operación. Intentá nuevamente.';
 }

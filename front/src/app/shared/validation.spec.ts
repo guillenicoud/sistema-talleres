@@ -22,4 +22,9 @@ describe('Validaciones', () => {
     expect(mensajeError(new HttpErrorResponse({ status: 500, error: 'SECRET SQL' }))).not.toContain('SECRET');
     expect(mensajeError(new HttpErrorResponse({ status: 0 }))).toContain('conectar');
   });
+  it('muestra el mensaje del servidor en errores 400 y 409', () => {
+    expect(mensajeError(new HttpErrorResponse({ status: 400, error: { message: 'El DNI debe tener 7 u 8 dígitos' } }))).toBe('El DNI debe tener 7 u 8 dígitos');
+    expect(mensajeError(new HttpErrorResponse({ status: 409, error: { message: 'Ya existe un taller con ese nombre' } }))).toBe('Ya existe un taller con ese nombre');
+    expect(mensajeError(new HttpErrorResponse({ status: 400, error: 'texto' }))).toContain('Revisá');
+  });
 });

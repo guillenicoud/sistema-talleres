@@ -9,7 +9,8 @@
   <h2 class="mb-3">Talleres</h2>
   <p>Consultá días, horarios y profesores en <a routerLink="/detalle-taller">Horarios</a>.</p>
 
-  <form class="row g-2 mb-4" (ngSubmit)="crear()">
+  <div class="card mb-4"><div class="card-body">
+  <form class="row g-2" (ngSubmit)="crear()">
     <div class="col-sm-8 col-md-6">
       <label for="nuevo-taller" class="form-label">Nombre del nuevo taller</label>
       <input id="nuevo-taller" name="nuevoTaller" class="form-control" type="text" maxlength="100" required [(ngModel)]="nuevoTaller" />
@@ -18,6 +19,7 @@
       <button type="submit" class="btn btn-primary" [disabled]="cargando || guardando">Agregar taller</button>
     </div>
   </form>
+  </div></div>
 
   <div *ngIf="!cargando && !error && talleres.length === 0" class="alert alert-info">No hay talleres registrados.</div>
 
@@ -25,7 +27,7 @@
     <table class="table table-bordered table-striped align-middle">
       <thead class="table-primary"><tr><th>#</th><th>Nombre del taller</th><th>Acciones</th></tr></thead>
       <tbody>
-        <tr *ngFor="let taller of talleres">
+        <tr *ngFor="let taller of talleres; trackBy: trackById">
           <td>{{ taller.id_taller }}</td>
           <td *ngIf="editId !== taller.id_taller">{{ taller.taller }}</td>
           <td *ngIf="editId === taller.id_taller">

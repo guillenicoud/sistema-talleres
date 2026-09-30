@@ -11,7 +11,7 @@
   <div class="row g-3">
     <div class="mb-4">
   <button [disabled]="guardando || cargando" class="btn btn-primary" (click)="agregando = !agregando">
-    {{ agregando ? '❌ Cancelar' : '➕ Nuevo horario' }}
+    {{ agregando ? 'Cancelar' : 'Nuevo horario' }}
   </button>
 
   <div *ngIf="agregando" class="mt-3 row g-2 align-items-end">
@@ -61,7 +61,7 @@
 
     <!-- Acciones -->
     <div class="col-auto d-flex gap-2">
-      <button aria-label="Guardar nuevo registro" [disabled]="guardando || cargando" class="btn btn-success btn-sm" (click)="guardarNuevo()">💾 Guardar</button>
+      <button aria-label="Guardar nuevo registro" [disabled]="guardando || cargando" class="btn btn-success btn-sm" (click)="guardarNuevo()">Guardar</button>
     </div>
   </div>
 </div>
@@ -76,7 +76,7 @@
             class="btn btn-sm btn-outline-secondary"
             (click)="toggleGrupo(tallerNombre)"
           >
-            {{ grupoExpandido[tallerNombre] ? "▲" : "▼" }}
+            {{ grupoExpandido[tallerNombre] ? "Ocultar" : "Ver horarios" }}
           </button>
         </div>
 
@@ -140,13 +140,13 @@
 
                 <div class="col-auto d-flex gap-2">
                   <button aria-label="Guardar cambios" [disabled]="guardando || cargando" class="btn btn-success btn-sm" (click)="saveEdit()">
-                    💾
+                    Guardar
                   </button>
                   <button aria-label="Cancelar edición" [disabled]="guardando || cargando"
                     class="btn btn-secondary btn-sm"
                     (click)="cancelEdit()"
                   >
-                    ❌
+                    Cancelar
                   </button>
                 </div>
               </div>
@@ -155,8 +155,8 @@
             <ng-template #verDetalle>
               <p><strong>Día:</strong> {{ detalle.dia }}</p>
               <p>
-                <strong>Horario:</strong> {{ detalle.hora_inicio }} -
-                {{ detalle.hora_fin }}
+                <strong>Horario:</strong> {{ detalle.hora_inicio | slice:0:5 }} -
+                {{ detalle.hora_fin | slice:0:5 }}
               </p>
               <p><strong>Nivel:</strong> {{ detalle.nivel || "General" }}</p>
               <p>
@@ -169,13 +169,13 @@
                   class="btn btn-outline-primary btn-sm"
                   (click)="startEdit(detalle)"
                 >
-                  ✏️
+                  Editar
                 </button>
                 <button aria-label="Eliminar horario" [disabled]="guardando || cargando"
                   class="btn btn-outline-danger btn-sm"
                   (click)="deleteDetalle(detalle.id_detalle)"
                 >
-                  🗑️
+                  Eliminar
                 </button>
               </div>
               <hr />
