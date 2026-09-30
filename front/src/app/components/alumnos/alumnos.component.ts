@@ -16,6 +16,7 @@ export class AlumnosComponent implements OnInit {
   error = '';
   constructor(private service: AlumnosService) {}
   ngOnInit(): void { this.cargar(); }
+  trackById(_: number, item: Alumno): number { return item.id_alumno; }
   cargar(): void {
     this.cargando = true;
     this.error = '';
@@ -29,7 +30,7 @@ export class AlumnosComponent implements OnInit {
     this.error = validarPersona(this.nuevoAlumno);
     if (this.error) return;
     this.guardando = true;
-    this.service.postALumno(this.nuevoAlumno).pipe(finalize(() => this.guardando = false)).subscribe({
+    this.service.create(this.nuevoAlumno).pipe(finalize(() => this.guardando = false)).subscribe({
       next: data => {
         this.alumnos = [...this.alumnos, data];
         this.nuevoAlumno = personaVacia();

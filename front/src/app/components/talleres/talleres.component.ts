@@ -16,6 +16,7 @@ export class TalleresComponent implements OnInit {
 
   constructor(private service: TalleresService) {}
   ngOnInit(): void { this.cargar(); }
+  trackById(_: number, item: Taller): number { return item.id_taller; }
 
   cargar(): void {
     this.cargando = true;

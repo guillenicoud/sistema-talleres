@@ -2,17 +2,16 @@
   <div *ngIf="error" class="alert alert-danger" role="alert">{{ error }} <button type="button" class="btn btn-sm btn-outline-danger" (click)="cargar()" [disabled]="cargando || guardando">Actualizar lista</button></div>
   <p *ngIf="cargando" role="status">Cargando...</p>
   <p *ngIf="guardando" role="status">Guardando cambios...</p>
-  <h2 class="mb-4 text-primary">👥 Alumnos</h2>
+  <h2 class="mb-4 text-primary">Alumnos</h2>
 
   <!-- Tarjeta del formulario -->
   <div class="card shadow-sm mb-4">
-    <div class="card-header bg-light fw-bold">➕ Agregar nuevo alumno</div>
+    <div class="card-header bg-light fw-bold">Agregar nuevo alumno</div>
     <div class="card-body">
       <form class="row g-3" (ngSubmit)="agregarAlumno()">
         <div class="col-md-6">
           <label class="form-label">Nombre</label>
           <div class="input-group">
-            <span class="input-group-text">👤</span>
             <input aria-label="Nombre"
               type="text"
               class="form-control"
@@ -26,7 +25,6 @@
         <div class="col-md-6">
           <label class="form-label">Apellido</label>
           <div class="input-group">
-            <span class="input-group-text">👤</span>
             <input aria-label="Apellido"
               type="text"
               class="form-control"
@@ -40,7 +38,6 @@
         <div class="col-md-6">
           <label class="form-label">DNI</label>
           <div class="input-group">
-            <span class="input-group-text">🪪</span>
             <input aria-label="DNI"
               type="text"
               class="form-control"
@@ -53,7 +50,6 @@
         <div class="col-md-6">
           <label class="form-label">Teléfono</label>
           <div class="input-group">
-            <span class="input-group-text">📞</span>
             <input aria-label="Teléfono"
               type="text"
               class="form-control"
@@ -64,7 +60,7 @@
           </div>
         </div>
         <div class="col-12 text-end mt-3">
-          <button [disabled]="guardando || cargando" type="submit" class="btn btn-primary px-4">✅ Agregar</button>
+          <button [disabled]="guardando || cargando" type="submit" class="btn btn-primary px-4">Agregar</button>
         </div>
       </form>
     </div>
@@ -72,7 +68,7 @@
 
   <!-- Tabla de alumnos -->
   <div class="card shadow-sm">
-    <div class="card-header bg-light fw-bold">📋 Lista de alumnos</div>
+    <div class="card-header bg-light fw-bold">Lista de alumnos</div>
     <div class="card-body p-0">
       <div class="table-responsive"><table class="table table-hover table-bordered m-0">
         <thead class="table-primary text-center">
@@ -85,7 +81,7 @@
           </tr>
         </thead>
         <tbody class="text-center"><tr *ngIf="!cargando && !error && alumnos.length === 0"><td colspan="5">No hay alumnos registrados.</td></tr>
-          <tr *ngFor="let alumno of alumnos">
+          <tr *ngFor="let alumno of alumnos; trackBy: trackById">
             <!-- Nombre -->
             <td *ngIf="editId !== alumno.id_alumno">{{ alumno.nombre }}</td>
             <td *ngIf="editId === alumno.id_alumno">
@@ -130,7 +126,7 @@
                 class="btn btn-sm btn-outline-primary me-1"
                 (click)="startEdit(alumno)"
               >
-                ✏️
+                Editar
               </button>
 
               <!-- Si está en edición -->
@@ -139,13 +135,13 @@
                   class="btn btn-sm btn-success me-1"
                   (click)="saveEdit()"
                 >
-                  💾
+                  Guardar
                 </button>
                 <button aria-label="Cancelar edición" [disabled]="guardando || cargando"
                   class="btn btn-sm btn-secondary me-1"
                   (click)="cancelEdit()"
                 >
-                  ❌
+                  Cancelar
                 </button>
               </ng-container>
 
@@ -153,7 +149,7 @@
                 class="btn btn-sm btn-outline-danger"
                 (click)="deleteAlumno(alumno.id_alumno)"
               >
-                🗑️
+                Eliminar
               </button>
             </td>
           </tr>

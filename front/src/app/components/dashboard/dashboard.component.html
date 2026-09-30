@@ -1,29 +1,86 @@
 <div class="container">
   <div *ngIf="error" class="alert alert-danger" role="alert">{{ error }} <button type="button" class="btn btn-sm btn-outline-danger" (click)="cargar()" [disabled]="cargando">Actualizar lista</button></div>
-  <p *ngIf="cargando" role="status">Cargando...</p>
 
+  <header class="bienvenida mb-4">
+    <div>
+      <h2 class="mb-1">{{ saludo }}</h2>
+      <p class="mb-0 text-muted">Panel de la Secretaría de Juventud</p>
+    </div>
+    <div class="fecha text-end">
+      <div class="fecha-dia">{{ fechaHoy | date:'EEEE d' }}</div>
+      <div class="text-muted small">{{ fechaHoy | date:'MMMM y' }}</div>
+    </div>
+  </header>
 
-    <div class="d-flex justify-content-end align-items-center mb-2">
-        <div class="text-muted small text-end">
-          <div>{{ fechaHoy | date:'fullDate' }} | Hora: {{ fechaHoy | date:'shortTime' }}</div>
+  <p *ngIf="cargando && !resumen" role="status">Cargando...</p>
+
+  <section class="row g-3 mb-4" aria-label="Resumen general">
+    <div class="col-6 col-lg-3">
+      <a routerLink="/alumnos" class="kpi kpi-azul">
+        <span class="kpi-valor">{{ resumen ? resumen.alumnos : '–' }}</span>
+        <span class="kpi-etiqueta">Alumnos registrados</span>
+      </a>
+    </div>
+    <div class="col-6 col-lg-3">
+      <a routerLink="/talleres" class="kpi kpi-verde">
+        <span class="kpi-valor">{{ resumen ? resumen.talleres : '–' }}</span>
+        <span class="kpi-etiqueta">Talleres</span>
+      </a>
+    </div>
+    <div class="col-6 col-lg-3">
+      <a routerLink="/talleristas" class="kpi kpi-violeta">
+        <span class="kpi-valor">{{ resumen ? resumen.talleristas : '–' }}</span>
+        <span class="kpi-etiqueta">Talleristas</span>
+      </a>
+    </div>
+    <div class="col-6 col-lg-3">
+      <a routerLink="/detalle-taller" class="kpi kpi-naranja">
+        <span class="kpi-valor">{{ resumen ? agenda.length : '–' }}</span>
+        <span class="kpi-etiqueta">Talleres hoy</span>
+      </a>
+    </div>
+  </section>
+
+  <div class="row g-3">
+    <section class="col-lg-7" aria-labelledby="titulo-agenda">
+      <div class="card h-100">
+        <div class="card-header" id="titulo-agenda">Agenda de hoy</div>
+        <div class="card-body">
+          <p *ngIf="resumen && agenda.length === 0" class="text-muted mb-0">No hay talleres programados para hoy.</p>
+          <ol class="agenda list-unstyled mb-0">
+            <li *ngFor="let taller of agenda; trackBy: trackById" class="agenda-item" [ngClass]="'estado-' + taller.estado">
+              <div class="agenda-hora">
+                <strong>{{ taller.inicio }}</strong>
+                <span>{{ taller.fin }}</span>
+              </div>
+              <div class="agenda-detalle">
+                <div class="agenda-titulo">{{ taller.nombre }}</div>
+                <div class="text-muted small">{{ taller.tallerista }}<span *ngIf="taller.nivel"> · {{ taller.nivel }}</span></div>
+              </div>
+              <span class="estado">{{ estados[taller.estado] }}</span>
+            </li>
+          </ol>
         </div>
       </div>
+    </section>
 
-    <h2 class="mb-4">Talleres del día</h2>
-
-    <div *ngIf="!cargando && !error && talleresHoy.length === 0" class="alert alert-info">
-      No hay talleres registrados para hoy.
-    </div>
-
-    <div *ngFor="let taller of talleresHoy" class="card mb-3 shadow-sm">
-      <div class="card-body">
-
-        <h5 class="card-title">{{ taller.nombre }}</h5>
-        <div class="d-flex flex-wrap gap-4 text-muted small">
-          <div><strong>Nivel:</strong> {{ taller.nivel }}</div>
-          <div><strong>Horario:</strong> {{ taller.hora_inicio }} - {{ taller.hora_fin }}</div>
-          <div><strong>Tallerista:</strong> {{ taller.tallerista }}</div>
+    <section class="col-lg-5" aria-labelledby="titulo-semana">
+      <div class="card h-100">
+        <div class="card-header" id="titulo-semana">Talleres por día</div>
+        <div class="card-body">
+          <div class="barras" role="img" aria-label="Cantidad de talleres por día de la semana">
+            <div *ngFor="let dia of semana" class="barra-col" [class.hoy]="dia.hoy">
+              <span class="barra-num">{{ dia.cantidad }}</span>
+              <div class="barra-pista"><div class="barra" [style.height.%]="altura(dia.cantidad)"></div></div>
+              <span class="barra-dia">{{ dia.corto }}</span>
+            </div>
+          </div>
+          <div class="pronto mt-4">
+            <strong>Próximamente</strong>
+            <span>Inscriptos y asistencia, cuando se habilite ese módulo.</span>
+          </div>
         </div>
       </div>
-    </div>
+    </section>
   </div>
+</div>
